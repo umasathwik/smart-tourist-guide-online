@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Tourist Guide | Plan Your Trip</title>
+  <meta name="description" content="Plan a trip with route distance, estimated transport costs, nearby hotels, restaurants, attractions and ML recommendations.">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/"><span class="brand-mark">✦</span><span>Smart<span class="brand-light">Tourist</span></span></a>
+    <nav><a href="#planner">Trip planner</a><a href="#results">Explore</a><a href="#about">About</a></nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">YOUR TRIP, MADE SIMPLER</p>
+        <h1>From “where to?”<br><span>to “let’s go.”</span></h1>
+        <p class="hero-desc">Plan a route, compare approximate transport budgets, and discover nearby stays, food and attractions in one place.</p>
+        <div class="hero-pills"><span>Route planning</span><span>Nearby places</span><span>ML recommendations</span></div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="sun"></div><div class="hill hill-back"></div><div class="hill hill-front"></div>
+        <div class="route-doodle">• ─ ─ •</div><div class="pin pin-one">⌖</div><div class="pin pin-two">⌖</div>
+        <div class="hero-stamp">GO<br>EXPLORE</div>
+      </div>
+    </section>
+
+    <section id="planner" class="planner-card">
+      <div class="section-heading">
+        <div><p class="eyebrow">TRIP PLANNER</p><h2>Where are you headed?</h2></div>
+        <span class="live-chip"><i></i> Online place search</span>
+      </div>
+      <form id="trip-form">
+        <div class="location-grid">
+          <label class="field"><span>From</span><div class="input-wrap"><span class="input-icon">⌖</span><input id="origin" name="origin" placeholder="City, landmark or address" required autocomplete="off"></div></label>
+          <button class="swap-button" id="swap-locations" type="button" aria-label="Swap origin and destination" title="Swap locations">⇄</button>
+          <label class="field"><span>To</span><div class="input-wrap"><span class="input-icon">⚑</span><input id="destination" name="destination" placeholder="Where do you want to go?" required autocomplete="off"></div></label>
+        </div>
+        <div class="location-tools"><button type="button" class="text-button" id="use-location">◎ Use my current location</button><span id="location-hint">Your location is used only after you grant browser permission.</span></div>
+        <div class="options-grid">
+          <label class="field"><span>Transport</span><select id="mode" name="mode"><option>Compare all</option><option>Bus</option><option>Car</option><option>Train</option><option>Airplane</option></select></label>
+          <label class="field"><span>Budget per attraction (₹)</span><input id="budget" name="budget" type="number" min="0" max="10000000" value="1000" required></label>
+          <label class="field"><span>What do you like?</span><select id="interest" name="interest"><option>All</option><option>Historical</option><option>Nature</option><option>Entertainment</option><option>Religious</option><option>Museum</option></select></label>
+        </div>
+        <button class="primary-button" type="submit" id="search-button"><span>Find my route & places</span><span aria-hidden="true">→</span></button>
+        <p class="form-note">Tip: enter a city or a full address for better location matching. Searches are not autocomplete.</p>
+      </form>
+    </section>
+
+    <section id="results" class="results-section" aria-live="polite">
+      <div id="welcome" class="welcome-panel">
+        <div class="welcome-icon">✈</div><div><h2>Your next trip starts here</h2><p>Enter a starting point and destination above. Your route, cost estimates and nearby places will appear here.</p></div>
+      </div>
+      <div id="loading" class="loading-panel hidden"><div class="spinner"></div><div><strong>Planning your trip…</strong><p>Finding locations, route options and nearby places from online map data.</p></div></div>
+      <div id="error-panel" class="error-panel hidden"></div>
+      <div id="results-content" class="hidden">
+        <div class="result-title-row"><div><p class="eyebrow">YOUR JOURNEY</p><h2 id="route-title">Route results</h2><p id="route-subtitle" class="muted"></p></div><a id="directions-link" class="secondary-button" target="_blank" rel="noopener">Open directions ↗</a></div>
+        <div id="route-summary" class="summary-grid"></div>
+        <div class="content-grid">
+          <section class="panel map-panel"><div class="panel-heading"><div><h3>Route map</h3><p class="muted small">Driving route preview when routing data is available</p></div><span class="map-badge">OPEN MAP</span></div><div id="map" role="region" aria-label="Map showing route and nearby places"></div><p class="map-attribution">Map data © OpenStreetMap contributors.</p><div id="route-warning" class="inline-note hidden"></div></section>
+          <section class="panel transport-panel"><div class="panel-heading"><div><h3>Transport budget</h3><p class="muted small">Approximate one-way estimates</p></div></div><div id="transport-table"></div><p class="disclaimer">These are rough demo estimates, not live bus, rail or airline fares. Car cost is per vehicle; other fares are per passenger.</p></section>
+        </div>
+        <section class="result-block"><div class="block-heading"><div><p class="eyebrow">LOCAL DISCOVERY</p><h2>Stay, eat & explore</h2><p class="muted">Places near your destination, retrieved from OpenStreetMap data.</p></div><span class="data-badge">Online source</span></div>
+          <div class="discovery-grid"><div class="panel"><div class="panel-heading"><h3>🏨 Nearby hotels & stays</h3></div><div id="hotel-list" class="place-list"></div></div><div class="panel"><div class="panel-heading"><h3>🍲 Nearby food</h3></div><div id="food-list" class="place-list"></div></div></div>
+          <p class="disclaimer">Nearby food venues are sorted by distance, not by user reviews. This free OpenStreetMap integration does not supply reliable restaurant ratings or availability. Use the maps links to check current reviews and opening hours.</p>
+        </section>
+        <section class="result-block"><div class="block-heading"><div><p class="eyebrow">DISCOVER NEARBY</p><h2>Attractions around your destination</h2><p class="muted">Nearby places and distances are based on map coordinates.</p></div></div><div id="attraction-list" class="card-grid"></div></section>
+        <section class="result-block"><div class="block-heading"><div><p class="eyebrow">MACHINE LEARNING</p><h2>Personalized place suggestions</h2><p class="muted">A trained Random Forest model ranks sample attractions for supported cities.</p></div><span class="data-badge">ML prediction</span></div><div id="ml-list" class="card-grid"></div><p class="disclaimer">Model ratings are predictions from a small educational sample dataset, not actual visitor ratings. Expand and validate the dataset before using these scores as real-world recommendations.</p></section>
+        <section id="source-notes" class="source-notes"></section>
+      </div>
+    </section>
+
+    <section id="about" class="about-strip"><div><p class="eyebrow">ABOUT THIS PROJECT</p><h2>One simple place to plan a trip.</h2></div><p>This student project combines Python machine learning with online map data. The initial version uses OpenStreetMap for places and route services for a road-route estimate.</p></section>
+  </main>
+  <footer><span>© 2026 Smart Tourist Guide · Student project</span><span>Map data © OpenStreetMap contributors</span></footer>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

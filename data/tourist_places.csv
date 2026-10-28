@@ -1,0 +1,37 @@
+Place,City,Type,Cost,Distance_km,Visit_Time_hr,Popularity,Rating,Latitude,Longitude
+Charminar,Hyderabad,Historical,50,3,2,90,4.6,17.3616,78.4747
+Golconda Fort,Hyderabad,Historical,150,10,3,95,4.7,17.3833,78.4011
+Salar Jung Museum,Hyderabad,Museum,50,3,3,85,4.4,17.3713,78.4804
+Hussain Sagar,Hyderabad,Nature,100,5,2,80,4.3,17.4239,78.4738
+Birla Mandir,Hyderabad,Religious,0,4,2,88,4.6,17.4062,78.4691
+Ramoji Film City,Hyderabad,Entertainment,1500,35,6,92,4.5,17.2543,78.6808
+RK Beach,Vizag,Nature,0,2,2,90,4.5,17.7149,83.3238
+Kailasagiri,Vizag,Nature,100,8,3,90,4.5,17.7477,83.3425
+INS Kursura Submarine Museum,Vizag,Museum,100,2,2,85,4.5,17.7174,83.3239
+Simhachalam Temple,Vizag,Religious,100,16,2,88,4.6,17.7659,83.2500
+Rushikonda Beach,Vizag,Nature,0,12,3,87,4.4,17.7825,83.3853
+Yarada Beach,Vizag,Nature,0,15,3,82,4.5,17.6547,83.2697
+Marina Beach,Chennai,Nature,0,3,2,95,4.5,13.0500,80.2824
+Kapaleeshwarar Temple,Chennai,Religious,0,5,2,91,4.6,13.0337,80.2698
+Fort St George,Chennai,Historical,100,3,2,85,4.3,13.0802,80.2877
+Government Museum,Chennai,Museum,50,4,3,87,4.4,13.0780,80.2609
+Guindy National Park,Chennai,Nature,50,10,3,80,4.2,13.0067,80.2206
+Santhome Basilica,Chennai,Religious,0,4,2,88,4.5,13.0339,80.2785
+Lalbagh Botanical Garden,Bengaluru,Nature,50,4,2,90,4.5,12.9507,77.5848
+Cubbon Park,Bengaluru,Nature,0,2,2,91,4.5,12.9763,77.5929
+Bangalore Palace,Bengaluru,Historical,250,4,2,87,4.4,12.9987,77.5920
+Vidhana Soudha,Bengaluru,Historical,0,2,1,85,4.3,12.9796,77.5907
+ISKCON Temple,Bengaluru,Religious,100,8,2,92,4.6,13.0108,77.5511
+Bannerghatta Biological Park,Bengaluru,Nature,300,25,5,91,4.5,12.8005,77.5770
+India Gate,Delhi,Historical,0,2,1,96,4.7,28.6129,77.2295
+Red Fort,Delhi,Historical,50,6,3,94,4.6,28.6562,77.2410
+Qutub Minar,Delhi,Historical,50,15,3,93,4.7,28.5245,77.1855
+Lotus Temple,Delhi,Religious,0,10,2,91,4.5,28.5535,77.2588
+Humayun's Tomb,Delhi,Historical,50,7,2,90,4.6,28.5933,77.2507
+Akshardham Temple,Delhi,Religious,0,8,4,95,4.8,28.6127,77.2773
+Gateway of India,Mumbai,Historical,0,3,2,96,4.6,18.9220,72.8347
+Marine Drive,Mumbai,Nature,0,4,2,97,4.7,18.9430,72.8238
+Juhu Beach,Mumbai,Nature,0,18,3,89,4.3,19.0988,72.8267
+Elephanta Caves,Mumbai,Historical,600,11,4,88,4.4,18.9633,72.9315
+Siddhivinayak Temple,Mumbai,Religious,0,11,2,90,4.6,19.0169,72.8305
+Chhatrapati Shivaji Maharaj Terminus,Mumbai,Historical,0,4,1,89,4.5,18.9398,72.8355
